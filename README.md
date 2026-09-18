@@ -7,13 +7,13 @@ you the change before it writes it.
 ## Install
 
 ```
-/plugin install training-coach --marketplace OWNER/REPO
+/plugin install training-coach --marketplace r-wedeen/training-coach-plugin
 ```
 
 On older Claude Code versions, two steps:
 
 ```
-/plugin marketplace add OWNER/REPO
+/plugin marketplace add r-wedeen/training-coach-plugin
 /plugin install training-coach@training-coach
 ```
 
