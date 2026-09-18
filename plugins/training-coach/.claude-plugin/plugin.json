@@ -1,0 +1,9 @@
+{
+  "name": "training-coach",
+  "version": "0.1.0",
+  "description": "Coach persona and live tools for your training plan: reads your sessions, logs and analytics, and rewrites upcoming training with your confirmation.",
+  "author": {
+    "name": "Training app"
+  },
+  "keywords": ["training", "coaching", "strength", "running", "gymnastics", "fitness"]
+}
