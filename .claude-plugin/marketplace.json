@@ -1,7 +1,7 @@
 {
   "name": "training-coach",
   "description": "Turn Claude Code into a strength-and-endurance coach with live access to your own training plan, workouts and logs.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "owner": {
     "name": "Training app"
   },
@@ -9,10 +9,13 @@
     {
       "name": "training-coach",
       "displayName": "Training Coach",
-      "description": "A coach persona plus live tools for your training app: read your plan and logs, then rewrite upcoming sessions, shift the schedule and record maxes — every change previewed and confirmed first.",
+      "description": "A coach persona plus live tools for your training app: read your plan and logs, then rewrite upcoming sessions, shift the schedule and record maxes \u2014 every change previewed and confirmed first.",
       "source": "./plugins/training-coach",
       "category": "productivity",
-      "skills": ["./skills/coach", "./skills/connect"]
+      "skills": [
+        "./skills/coach",
+        "./skills/connect"
+      ]
     }
   ]
 }

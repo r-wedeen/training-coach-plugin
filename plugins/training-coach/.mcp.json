@@ -2,9 +2,9 @@
   "mcpServers": {
     "training": {
       "type": "http",
-      "url": "${TRAINING_MCP_URL:-https://alephknot-training.fly.dev/mcp}",
+      "url": "${user_config.server_url}",
       "headers": {
-        "Authorization": "Bearer ${TRAINING_API_KEY}"
+        "Authorization": "Bearer ${user_config.api_key}"
       }
     }
   }

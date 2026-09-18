@@ -9,44 +9,28 @@ description: >-
 
 # Connect the coach to the training app
 
-The plugin talks to the athlete's own training server over MCP. It needs two values, both
-read from the environment at startup:
+The plugin talks to the athlete's own training server over MCP. Both values it needs are
+plugin settings, entered in a dialog at install time and stored in the system keychain:
 
-| variable | meaning |
+| setting | meaning |
 |---|---|
-| `TRAINING_API_KEY` | the API key from the app's Settings screen (required) |
-| `TRAINING_MCP_URL` | the server's MCP endpoint; only needed for a self-hosted server |
+| **Training app API key** | from the app's Settings screen (required, stored as a secret) |
+| **Server address** | the MCP endpoint; only changed if they run their own server |
 
-## Setting them up
-
-The key is in the app under **Settings → API key**. It must be exported before Claude Code
-starts, because MCP servers are launched with the session:
-
-```bash
-echo 'export TRAINING_API_KEY="paste-the-key-here"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-Then restart Claude Code and run `/mcp` to confirm the `training` server is connected.
-
-Self-hosted servers also need the endpoint, which is the app's base URL with `/mcp` appended:
-
-```bash
-echo 'export TRAINING_MCP_URL="https://your-server.example.com/mcp"' >> ~/.zshrc
-```
+To change either, the athlete runs `/plugin configure training-coach`. Nothing needs to go in
+a shell profile, and Claude Code does not need restarting after a change.
 
 ## Diagnosing
 
-- **No `training` tools at all** — the plugin is installed but the server did not start.
-  Check `/mcp`, then confirm `TRAINING_API_KEY` is exported *in the shell that launched Claude Code*
-  (`echo $TRAINING_API_KEY`). A key set after launch has no effect until restart.
-- **401 or "the bearer key was rejected"** — the key is wrong or was rotated. Copy it again
-  from the app's Settings screen.
-- **Connection refused or a timeout** — the server is unreachable. If it is self-hosted on a
-  platform that sleeps idle machines, the first request can take a few seconds; retry once.
-  Otherwise check the URL is the base URL plus `/mcp`.
+- **No `training` tools at all** — the plugin is installed but the server never started. Check
+  `/mcp`. If the key was never entered, `/plugin configure training-coach` will ask for it.
+- **401, or "the bearer key was rejected"** — the key is wrong or was rotated. Copy it again
+  from the app's Settings screen and re-enter it with `/plugin configure training-coach`.
+- **Connection refused or a timeout** — the server is unreachable. Check the Server address is
+  the base URL with `/mcp` on the end. A self-hosted server that sleeps when idle may need one
+  retry to wake.
 - **Tools work but return nothing** — the account is reachable but has no plan imported yet.
   Say so plainly rather than inventing a plan.
 
-Never ask the athlete to paste their API key into the conversation. It belongs in the
-environment, and you do not need to see it to use the tools.
+Never ask the athlete to paste their API key into the conversation. It belongs in the plugin
+settings, and you do not need to see it to use the tools.

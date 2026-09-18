@@ -10,20 +10,19 @@ you the change before it writes it.
 /plugin install training-coach --marketplace r-wedeen/training-coach-plugin
 ```
 
-On older Claude Code versions, two steps:
+Claude Code asks for your **API key** as it installs. Copy it from the app's **Settings**
+screen and paste it into the dialog. It is stored in your system keychain, not in a file, and
+you are never asked again. There is nothing to add to your shell profile.
+
+On older Claude Code versions, add the marketplace first:
 
 ```
 /plugin marketplace add r-wedeen/training-coach-plugin
 /plugin install training-coach@training-coach
 ```
 
-Then export your API key, from the app's **Settings** screen, and restart Claude Code:
-
-```bash
-echo 'export TRAINING_API_KEY="paste-the-key-here"' >> ~/.zshrc && source ~/.zshrc
-```
-
-Self-hosting? Also set `TRAINING_MCP_URL` to your server's base URL plus `/mcp`.
+To change the key later, run `/plugin configure training-coach`. If you run your own server,
+the same dialog has a **Server address** field.
 
 ## Use it
 
