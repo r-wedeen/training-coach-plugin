@@ -14,7 +14,7 @@ plugin settings, entered in a dialog at install time and stored in the system ke
 
 | setting | meaning |
 |---|---|
-| **Training app API key** | from the app's Settings screen (required, stored as a secret) |
+| **Training app API key** | the server's `TRAINING_API_KEY` (the operator sets it with `fly secrets set`; it is *not* the username/password the app itself signs in with) (required, stored as a secret) |
 | **Server address** | the MCP endpoint; only changed if they run their own server |
 
 To change either, the athlete runs `/plugin configure training-coach`. Nothing needs to go in
@@ -25,7 +25,8 @@ a shell profile, and Claude Code does not need restarting after a change.
 - **No `training` tools at all** — the plugin is installed but the server never started. Check
   `/mcp`. If the key was never entered, `/plugin configure training-coach` will ask for it.
 - **401, or "the bearer key was rejected"** — the key is wrong or was rotated. Copy it again
-  from the app's Settings screen and re-enter it with `/plugin configure training-coach`.
+  from the operator (`fly secrets set TRAINING_API_KEY=…` on the server) and re-enter it with
+  `/plugin configure training-coach`. The app's own username and password do not open the MCP endpoint.
 - **Connection refused or a timeout** — the server is unreachable. Check the Server address is
   the base URL with `/mcp` on the end. A self-hosted server that sleeps when idle may need one
   retry to wake.
