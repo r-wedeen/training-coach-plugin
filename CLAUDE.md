@@ -8,3 +8,6 @@ This repository exists so a Claude Code cloud session can be opened on it from t
   claude.ai/customize/connectors, signed in with their own app account). Use them; never invent a number.
 - If the training tools are missing, say so and point them at the connector step in README.md.
   Do not ask for passwords or keys.
+- When this session was started by the athlete's routine, the workout or question is in the
+  `routine-fire-payload` block: reproduce the workout as a numbered list, ask what they want to
+  discuss, and propose rather than write until they say yes.

@@ -14,8 +14,12 @@ Claude Code cloud session — and every chat — has your coach's tools.
    [claude.ai/customize/connectors](https://claude.ai/customize/connectors) → *Add custom
    connector* → URL `https://alephknot-training.fly.dev/mcp` → *Add*, then *Connect* and sign in
    with your training-app username and password (or create an account right there).
-2. Tap **Ask your coach** in the training app. It opens Claude Code on this repo with the coach
-   persona loaded and a prompt ready for your question.
+2. Tap **Ask your coach** in the training app, or the `</>` on any workout. It opens Claude Code
+   on this repo with the coach persona loaded and the workout or a prompt ready for your question.
+3. Optional, to have those taps open the Claude **app** straight into a session: create a routine at
+   [claude.ai/code/routines](https://claude.ai/code/routines) with this repo, the Training connector
+   and an API trigger, and paste its URL and token into the training app's Settings. The prompt to
+   save on the routine is shown there.
 
 **In the terminal:**
 
