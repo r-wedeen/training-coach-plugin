@@ -9,7 +9,8 @@ you the change before it writes it.
 **On your phone (or claude.ai):** add the training server as a connector once, and every
 Claude Code cloud session — and every chat — has your coach's tools.
 
-1. Open [claude.ai/customize/connectors](https://claude.ai/customize/connectors) → *Add custom
+1. In a **computer browser** (the phone app cannot add connectors), open
+   [claude.ai/customize/connectors](https://claude.ai/customize/connectors) → *Add custom
    connector* → URL `https://alephknot-training.fly.dev/mcp` → *Add*, then *Connect* and sign in
    with your training-app username and password (or create an account right there).
 2. Tap **Ask your coach** in the training app. It opens Claude Code on this repo with the coach
