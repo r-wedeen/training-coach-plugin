@@ -4,15 +4,25 @@ Turns Claude Code into your coach, with live access to your own training plan, w
 logs. It reads what you actually did, and rewrites what you are about to do — always showing
 you the change before it writes it.
 
-## Install
+## Two ways to use it
+
+**On your phone (or claude.ai):** add the training server as a connector once, and every
+Claude Code cloud session — and every chat — has your coach's tools.
+
+1. Open [claude.ai/customize/connectors](https://claude.ai/customize/connectors) → *Add custom
+   connector* → URL `https://alephknot-training.fly.dev/mcp` → *Add*, then *Connect* and sign in
+   with your training-app username and password (or create an account right there).
+2. Tap **Ask your coach** in the training app. It opens Claude Code on this repo with the coach
+   persona loaded and a prompt ready for your question.
+
+**In the terminal:**
 
 ```
 /plugin install training-coach --marketplace r-wedeen/training-coach-plugin
 ```
 
-Claude Code asks for your **API key** as it installs. Copy it from the app's **Settings**
-screen and paste it into the dialog. It is stored in your system keychain, not in a file, and
-you are never asked again. There is nothing to add to your shell profile.
+Then `/mcp` → `training` → *Authenticate*: a browser page asks for your training-app username
+and password. No API key, nothing in your shell profile. Your token lives in the system keychain.
 
 On older Claude Code versions, add the marketplace first:
 
@@ -21,25 +31,8 @@ On older Claude Code versions, add the marketplace first:
 /plugin install training-coach@training-coach
 ```
 
-To change the key later, run `/plugin configure training-coach`. If you run your own server,
-the same dialog has a **Server address** field.
+If you run your own server, `/plugin configure training-coach` has a **Server address** field.
 
 ## Use it
 
 Just talk to it.
-
-- "How did last week go?"
-- "My knees are wrecked, lighten Thursday."
-- "Move everything forward a week, I'm travelling."
-- "I hit a 150 kg back squat today."
-- "Why is my mile time stalling?"
-
-It can rewrite sessions, shift your schedule, record new maxes and re-anchor your pace zones.
-Changes to past sessions and to sessions you have already logged are refused by the server,
-not just by the model.
-
-## What runs where
-
-The AI runs in **your** Claude Code session on your own subscription. The plugin ships no
-model access and no secrets; your server only stores training data. Uninstall with
-`/plugin uninstall training-coach`.

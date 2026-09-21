@@ -2,10 +2,7 @@
   "mcpServers": {
     "training": {
       "type": "http",
-      "url": "${user_config.server_url}",
-      "headers": {
-        "Authorization": "Bearer ${user_config.api_key}"
-      }
+      "url": "${user_config.server_url}"
     }
   }
 }
