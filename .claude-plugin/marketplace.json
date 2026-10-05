@@ -1,7 +1,7 @@
 {
   "name": "training-coach",
   "description": "Turn Claude Code into a strength-and-endurance coach with live access to your own training plan, workouts and logs.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "owner": {
     "name": "Training app"
   },
