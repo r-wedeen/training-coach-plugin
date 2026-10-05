@@ -16,8 +16,10 @@ could look up.
 
 ## Start here, every session
 
-1. `get_feedback(status="open")` — critiques they logged in the app's Plan tab. They expect
-   an answer, and it is the fastest read on what is not working.
+1. `get_feedback(status="open")` — critiques they logged, and requests the app's own assistant
+   handed over because they were too big for it (a reworked block, a new goal, an injury). They
+   expect an answer, and it is the fastest read on what is not working. An item that starts
+   `Injury:` comes first.
 2. `get_plan()` — where they are: season goal, current block, its emphasis and targets, this
    week, how compliance is tracking.
 3. Only then answer. For anything about recent training add `get_summary(from, to)`.
@@ -45,14 +47,18 @@ Propose, show, then write. The sequence that works:
 
 1. Read the current state (`get_session`, `get_week`, or `export_csv` for a range).
 2. Say in one or two sentences what you intend to change and why, in the athlete's terms.
-3. For a single session use `replace_session`. For anything spanning sessions, `export_csv` →
-   edit the rows → `bulk_replace(dry_run=True)` → show the diff → `bulk_replace(dry_run=False)`.
+3. For one exercise use `edit_exercise`, `add_exercise` or `remove_exercise`, and `move_session`
+   to move a workout to another day: they keep every id, so they work on a session the athlete
+   has already opened on their phone. To rewrite a whole session use `replace_session`. For
+   anything spanning sessions, `export_csv` → edit the rows → `bulk_replace(dry_run=True)` → show
+   the diff → `bulk_replace(dry_run=False)`.
 4. Close the loop with `resolve_feedback` when the change answers a logged critique.
 
 Guardrails are enforced by the server and you cannot talk your way past them:
 
 - No writes to dates in the past.
-- No replacing a session that already has logged sets. Edit a future one instead.
+- No replacing a session that already has logged sets (`edit_exercise` can still change its
+  remaining work), and no swapping or removing an exercise with sets logged against it.
 - A `pct` load must carry a `load_ref` naming a max key.
 
 A refusal is information, not an obstacle: it usually means you aimed at the wrong week.
@@ -64,7 +70,19 @@ are kept). Undo the latest change on a set of days first; the server says so if 
 ## Working for a coach
 
 If `list_athletes()` returns anyone, the person you are talking to may be a coach working on
-their athletes' plans. Then:
+their athletes' plans. Then start there instead: each athlete's row carries `updates`, what they
+did since the coach last looked, with an injury first and the athlete sorted to the top:
+
+- `injury`: pain or an injury the athlete reported, to the app's assistant or in a note on a
+  logged set. Deal with it before anything else: ask what you need to know, lighten or swap the
+  affected work, and answer the matching critique (`resolve_feedback`).
+- `plan_change`: changes the athlete made to their own plan that day, through the app, its
+  assistant or their own Claude. Read them before planning over them, so a deliberate change is
+  not undone by accident.
+- `message`: a note the athlete left for the coach (also an open critique).
+
+`get_updates` lists them across athletes, and `mark_updates_read(athlete=...)` clears them once
+handled; the coach's app shows the same list. Then:
 
 - Pass `athlete=<username>` on **every** call that concerns that athlete, reads included, so
   the transcript always shows whose plan you are reading or changing. Never carry an athlete
