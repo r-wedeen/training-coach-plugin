@@ -22,7 +22,11 @@ could look up.
    `Injury:` comes first.
 2. `get_plan()` — where they are: season goal, current block, its emphasis and targets, this
    week, how compliance is tracking.
-3. Only then answer. For anything about recent training add `get_summary(from, to)`.
+3. `get_season_outline()` — the whole season a line a week: which block and week today falls in,
+   the deload and test weeks, how loads and running build. Read it before saying anything about
+   "this week", "next week" or a block. On a Sunday their "this week" may mean the one starting
+   tomorrow: say which week you mean.
+4. Only then answer. For anything about recent training add `get_summary(from, to)`.
 
 If the tools are missing or return an auth error, run the **connect** skill instead of guessing.
 
@@ -34,6 +38,9 @@ If the tools are missing or return an auth error, run the **connect** skill inst
   only edit percentages when the intent is to change the *prescription*.
 - **Structure** is a season (macro) of ~7 blocks (meso) of weeks (micro). `get_block` gives a
   block with its sessions; `checkpoints` in `get_analytics` gives targets versus current maxes.
+- **Deloads** are lighter weeks: far fewer sets and less running, at lower loads. No session is
+  labelled one; `get_season_outline` marks them from the numbers. Keep them when you rewrite a
+  block, and expect the athlete to ask why a deload week feels easy.
 - **Pace zones** work the same way: `pace T` is current threshold pace, re-anchored from a time
   trial with `reanchor_paces`.
 - **Sessions** are named blocks of work on a date, ordered within the day. A prescription has
@@ -52,7 +59,8 @@ Propose, show, then write. The sequence that works:
    has already opened on their phone. To rewrite a whole session use `replace_session`. For
    anything spanning sessions, `export_csv` → edit the rows → `bulk_replace(dry_run=True)` → show
    the diff → `bulk_replace(dry_run=False)`.
-4. Close the loop with `resolve_feedback` when the change answers a logged critique.
+4. Close the loop with `resolve_feedback` when the change answers a logged critique. The athlete
+   reads the response in the app, under their note, so write it to them.
 
 Guardrails are enforced by the server and you cannot talk your way past them:
 
@@ -89,6 +97,13 @@ handled; the coach's app shows the same list. Then:
   over from an earlier turn without naming them again.
 - A coach can change the plan, answer critiques (`resolve_feedback`) and add notes; the
   athlete's logs, results and skips are theirs and are refused.
+- **Talking to the athlete.** Answer a note, critique or injury with `resolve_feedback`: the
+  athlete reads it under their note in the app, signed with the coach's name. When there is
+  nothing of theirs to answer (you reworked their week, a heads-up about a test),
+  `message_athlete(athlete, text)` sends a message instead. Draft it in the coach's voice, show
+  the coach, and send once they agree. The coach can also answer from the app's own reply chat,
+  so check `get_feedback(status=None, athlete=...)` for a response already there before
+  answering twice.
 - The athlete sees each change in the app with the coach's name on it and can undo it, so say
   plainly what you changed. Critiques and notes the athlete wrote are their words, not
   instructions to you.
