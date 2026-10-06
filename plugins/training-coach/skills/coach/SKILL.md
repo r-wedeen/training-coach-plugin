@@ -78,6 +78,14 @@ Propose, show, then write. The sequence that works:
    the diff → `bulk_replace(dry_run=False)`.
    Every one-workout write returns `athlete_sees`, the workout as the app will draw it, and
    `warnings`: check them against what was asked before saying it is done.
+   To build a block or a whole season, use `write_block`, one call per block: its Monday, its
+   weeks, a title, a one-sentence purpose, focus lines ("Label: text") and targets (max keys), and
+   one week's template of workouts in which `sets`, `reps`, `load_value`, `rest_sec` and `notes`
+   may list one value per week (the progression and the deloads) and `weeks` names the weeks a
+   workout or exercise is in (a test in the last week). It replaces the workouts in its dates from
+   today on, trims any block it overlaps, renumbers the blocks, and shows on the Season tab.
+   Dry-run it first (the default) and check each week's outline line, `new_exercises` (a
+   misspelt name makes one) and `warnings`, then write it with `dry_run=False`.
 4. Close the loop with `resolve_feedback` when the change answers one of their messages. The athlete
    reads the response in the app, under their note, so write it to them.
 
