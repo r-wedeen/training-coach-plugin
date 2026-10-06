@@ -44,8 +44,21 @@ If the tools are missing or return an auth error, run the **connect** skill inst
 - **Pace zones** work the same way: `pace T` is current threshold pace, re-anchored from a time
   trial with `reanchor_paces`.
 - **Sessions** are named blocks of work on a date, ordered within the day. A prescription has
-  sets, a free-text reps field (`5`, `1+2`, `8 min`, `400 m`, `max`), a load and an optional
-  `rest_sec` that drives the app's interval timer.
+  sets, a free-text reps field (`5`, `1+2`, `8 min`, `400 m`, `15 cal`, `max`), a load and an
+  optional `rest_sec` that drives the app's interval timer (with a duration in reps, the rest after
+  each round's work; otherwise a new set every `rest_sec`, so 60 is an EMOM).
+- **How a card looks in the app** is built from those fields, never from words in a name:
+  - `superset`: a short label shared by exercises done in turn on **one card and one clock**. An
+    alternating EMOM of A and B for 10 min is A and B next to each other, one label, 5 sets each,
+    `rest_sec` 60 on both; every 2 min is 120; a circuit of three is three members.
+  - `fields`: the boxes each set row shows (`weight`, `reps`, `time`, `distance`, `calories`, `rpe`);
+    leave it out and the app infers them. `["weight", "reps"]` drops the RPE box; a bike might log
+    `["calories", "time"]`.
+  - `per_set`: sets that differ, one entry per set from the first: `{"label", "reps", "load"}` (load in
+    the exercise's load_type). A top single and back-offs, a 5/3/1, labelled warm-ups.
+  - A format word in an exercise's name ("EMOM", "AMRAP", "for time", "rounds", "metcon") makes the
+    card **one result box** with no set rows: right for an AMRAP scored once (`reps: "12 min AMRAP"`,
+    movements in the notes), wrong for anything logged set by set. Name exercises after the movement.
 - **Status is derived** from what was logged: planned, partial, done, skipped. Never try to set it.
 
 ## Changing the plan
@@ -54,11 +67,17 @@ Propose, show, then write. The sequence that works:
 
 1. Read the current state (`get_session`, `get_week`, or `export_csv` for a range).
 2. Say in one or two sentences what you intend to change and why, in the athlete's terms.
-3. For one exercise use `edit_exercise`, `add_exercise` or `remove_exercise`, and `move_session`
-   to move a workout to another day: they keep every id, so they work on a session the athlete
-   has already opened on their phone. To rewrite a whole session use `replace_session`. For
-   anything spanning sessions, `export_csv` → edit the rows → `bulk_replace(dry_run=True)` → show
+3. To reshape one workout (a superset or EMOM, a new order, replacing or splitting exercises,
+   several changes at once) use `edit_workout`: every exercise in the order it is done, `{"id": ...}`
+   to keep one plus only the fields that change (null clears), items without an id to add, and
+   the ids to take out in `remove`. It is all or nothing, keeps ids and logs, and works on a
+   session the athlete has started. For one field of one exercise use `edit_exercise` (`clear`
+   empties a field), and `move_session` to move a workout to another day. To rewrite a whole
+   session use `replace_session`. For anything spanning sessions, `export_csv` (its `superset`,
+   `fields` and `per_set` columns included) → edit the rows → `bulk_replace(dry_run=True)` → show
    the diff → `bulk_replace(dry_run=False)`.
+   Every one-workout write returns `athlete_sees`, the workout as the app will draw it, and
+   `warnings`: check them against what was asked before saying it is done.
 4. Close the loop with `resolve_feedback` when the change answers one of their messages. The athlete
    reads the response in the app, under their note, so write it to them.
 
