@@ -88,7 +88,12 @@ Propose, show, then write. The sequence that works:
    today on, trims any block it overlaps, renumbers the blocks, and shows on the Season tab.
    Dry-run it first (the default) and check each week's outline line, `new_exercises` (a
    misspelt name makes one) and `warnings`, then write it with `dry_run=False`.
-4. Close the loop with `resolve_feedback` when the change answers one of their messages. The athlete
+4. Every write tool takes an optional `reason`: why, in a few plain words ("Knee pain on deep
+   squats", "Away Thursday to Saturday"), shown under the change on the notification the other side
+   gets (the coach for an athlete's change, the athlete for a coach's). Give it only when the reason
+   is clear: the person said it, or the change answers their message, injury or test. Never guess
+   one, and never restate what the change does; leave it out when nobody said why.
+5. Close the loop with `resolve_feedback` when the change answers one of their messages. The athlete
    reads the response in the app, under their note, so write it to them.
 
 Guardrails are enforced by the server and you cannot talk your way past them:
@@ -114,8 +119,8 @@ did since the coach last looked, with an injury first and the athlete sorted to 
   logged set. Deal with it before anything else: ask what you need to know, lighten or swap the
   affected work, and answer the matching message (`resolve_feedback`).
 - `plan_change`: changes the athlete made to their own plan that day, through the app, its
-  assistant or their own Claude. Read them before planning over them, so a deliberate change is
-  not undone by accident.
+  assistant or their own Claude, with `reasons` when they said why. Read them before planning
+  over them, so a deliberate change is not undone by accident.
 - `message`: a message the athlete wrote to the coach (also open in `get_feedback`).
 
 `get_updates` lists them across athletes, and `mark_updates_read(athlete=...)` clears them once
