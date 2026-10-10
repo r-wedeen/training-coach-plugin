@@ -82,7 +82,9 @@ Propose, show, then write. The sequence that works:
    weeks, a title, a one-sentence purpose, focus lines ("Label: text") and targets (max keys), and
    one week's template of workouts in which `sets`, `reps`, `load_value`, `rest_sec` and `notes`
    may list one value per week (the progression and the deloads) and `weeks` names the weeks a
-   workout or exercise is in (a test in the last week). It replaces the workouts in its dates from
+   workout or exercise is in (a test in the last week). Give each workout a `purpose`: one line on
+   what it is for and which goal it serves (`replace_session` takes one too); it shows in the app
+   and is what the in-app assistant reads when asked what a workout is for. It replaces the workouts in its dates from
    today on, trims any block it overlaps, renumbers the blocks, and shows on the Season tab.
    Dry-run it first (the default) and check each week's outline line, `new_exercises` (a
    misspelt name makes one) and `warnings`, then write it with `dry_run=False`.
