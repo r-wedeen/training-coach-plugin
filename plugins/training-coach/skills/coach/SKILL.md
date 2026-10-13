@@ -88,6 +88,15 @@ Propose, show, then write. The sequence that works:
    today on, trims any block it overlaps, renumbers the blocks, and shows on the Season tab.
    Dry-run it first (the default) and check each week's outline line, `new_exercises` (a
    misspelt name makes one) and `warnings`, then write it with `dry_run=False`.
+   The same edit on many workouts (every one of a kind through a block or the season: "every
+   Bodyweight EMOM on a 30 s clock", "rest 90 s on every back squat from November", "swap ring dips
+   for bar dips on Tuesdays") is one `bulk_edit`, never `edit_exercise` looped across weeks: name the
+   workouts (`workout`, and `exercise` when only one of their exercises changes; `weekdays`,
+   `from_date`, `to_date` to narrow it) and the edit (`set` with the fields `edit_exercise` takes,
+   `swap`, `remove`, `add`, `workout_notes`, `purpose`). It is one change with one `undo_change`
+   however many workouts it touches; workouts the athlete has started or logged are skipped and
+   listed. Dry-run it first (the default), say how many workouts it changes and check `samples` and
+   `warnings`, then `dry_run=False`. A value that changes week to week is `write_block`'s.
 4. Every write tool takes an optional `reason`: why, in a few plain words ("Knee pain on deep
    squats", "Away Thursday to Saturday"), shown under the change on the notification the other side
    gets (the coach for an athlete's change, the athlete for a coach's). Give it only when the reason
