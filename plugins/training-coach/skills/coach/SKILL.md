@@ -59,6 +59,9 @@ If the tools are missing or return an auth error, run the **connect** skill inst
   - A format word in an exercise's name ("EMOM", "AMRAP", "for time", "rounds", "metcon") makes the
     card **one result box** with no set rows: right for an AMRAP scored once (`reps: "12 min AMRAP"`,
     movements in the notes), wrong for anything logged set by set. Name exercises after the movement.
+    A name that states its own count ("Norwegian 4x4", "5x5 back squat") follows its sets and reps:
+    change `sets` and the server renames it ("Norwegian 3x4"), and its workout when the workout's name
+    says the same count. A `warnings` line says when it could not (logged sets, a name clash).
 - **Status is derived** from what was logged: planned, partial, done, skipped. Never try to set it.
 
 ## Changing the plan
@@ -107,7 +110,11 @@ Propose, show, then write. The sequence that works:
 
 Guardrails are enforced by the server and you cannot talk your way past them:
 
-- No writes to dates in the past.
+- On an athlete's plan (a coach, `athlete` named), no writes to dates in the past. On your own
+  plan one workout may be changed on any date, the past included: when the athlete says a past
+  workout went differently ("it was 3 rounds, not 4", "I rowed instead of the second run"), edit
+  it so it says what was really done (`edit_exercise`, `edit_workout`, `add_exercise`, notes).
+  Imports (`bulk_replace`) and `shift_schedule` never start in the past.
 - No replacing a session that already has logged sets (`edit_exercise` can still change its
   remaining work), and no swapping or removing an exercise with sets logged against it.
 - A `pct` load must carry a `load_ref` naming a max key.
