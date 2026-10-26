@@ -1,7 +1,7 @@
 {
   "name": "training-coach",
-  "description": "Turn Claude Code into a strength-and-endurance coach with live access to your own training plan, workouts and logs.",
-  "version": "0.13.0",
+  "description": "Retired (2026-10-25): StarTrain's AI is in the StarTrain app now; this plugin's connector no longer answers.",
+  "version": "1.0.0",
   "owner": {
     "name": "Training app"
   },
@@ -9,7 +9,7 @@
     {
       "name": "training-coach",
       "displayName": "Training Coach",
-      "description": "A coach persona plus live tools for your training app: read your plan and logs, then rewrite upcoming sessions, shift the schedule and record maxes \u2014 every change previewed and confirmed first.",
+      "description": "Retired (2026-10-25): StarTrain's AI is in the StarTrain app now; this plugin's connector no longer answers.",
       "source": "./plugins/training-coach",
       "category": "productivity",
       "skills": [

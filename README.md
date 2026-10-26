@@ -1,3 +1,13 @@
+# Training Coach for Claude Code — retired
+
+**Retired on 2026-10-25.** StarTrain's AI is now only in the StarTrain app: open the app and use its assistant. The
+connector this plugin signed in to (`/mcp`) no longer answers, so the plugin's tools cannot reach your plan any more.
+Uninstall it with `/plugin uninstall training-coach`, and remove the Training connector from claude.ai if you added it.
+
+What follows is how it worked, kept for the record.
+
+---
+
 # Training Coach for Claude Code
 
 Turns Claude Code into your coach, with live access to your own training plan, workouts and

@@ -1,7 +1,7 @@
 {
   "name": "training-coach",
-  "version": "0.14.0",
-  "description": "Coach persona and live tools for your training plan: reads your sessions, logs and analytics, and rewrites upcoming training with your confirmation.",
+  "version": "1.0.0",
+  "description": "Retired (2026-10-25): StarTrain's AI is in the StarTrain app now; this plugin's connector no longer answers.",
   "author": {
     "name": "Training app"
   },
